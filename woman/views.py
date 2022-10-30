@@ -6,16 +6,40 @@ from woman.serializers import WomanSerializer
 
 class WomanAPIView(APIView):
     def get(self, request):
-        print('XXX', request.data)
         return Response({'posts': WomanSerializer(Woman.objects.all(), many=True).data})
 
     def post(self, request):
-        WomanSerializer(data=request.data).is_valid(raise_exception=True)
+        serializer = WomanSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
 
-        new_post = Woman.objects.create(
-            title=request.data['title'],
-            content=request.data['content'],
-            cat_id=request.data['cat_id']
-        )
+        return Response({'post': serializer.data})
 
-        return Response({'post': WomanSerializer(new_post).data})
+    def put(self, request, *args, **kwargs):
+        pk = kwargs.get("pk", None)
+        if not pk:
+            return Response({"error": "Method PUT not allowed"})
+
+        try:
+            instance = Woman.objects.get(pk=pk)
+        except:
+            return Response({"error": "Object does not exists"})
+
+        serializer = WomanSerializer(data=request.data, instance=instance)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response({"post": serializer.data})
+
+    def delete(self, request, *args, **kwargs):
+        pk = kwargs.get("pk", None)
+        if not pk:
+            return Response({"error": "Method DELETE not allowed"})
+
+        try:
+            instance = Woman.objects.get(pk=pk)
+            instance.delete()
+        except:
+            return Response({"error": "Object does not exists"})
+
+        return Response({"post": "delete post " + str(pk)})
