@@ -1,6 +1,6 @@
 from django.urls import path
-from woman.views import WomenAPIView
+from woman.views import WomanAPIView
 
 urlpatterns = [
-    path('', WomenAPIView.as_view(), name='women'),
+    path('', WomanAPIView.as_view(), name='women'),
 ]

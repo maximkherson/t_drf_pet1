@@ -9,8 +9,8 @@ class Category(models.Model):
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
 
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.name
 
 
 class Woman(models.Model):
@@ -26,5 +26,5 @@ class Woman(models.Model):
         verbose_name = 'Woman'
         verbose_name_plural = 'Women'
 
-    def __str__(self):
-        return self.title
+    # def __str__(self):
+    #     return self.title
