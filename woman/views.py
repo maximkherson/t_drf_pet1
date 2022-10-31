@@ -11,5 +11,6 @@ class WomanModelViewSet(ModelViewSet):
 
     @action(methods=['get'], detail=True)
     def category(self, request, pk=None):
-        category = Category.objects.get(pk=pk)
+        wo = self.get_object()
+        category = Category.objects.get(pk=wo.cat.id)
         return Response({'category': category.name})
