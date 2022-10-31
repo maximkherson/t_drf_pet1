@@ -1,13 +1,8 @@
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.viewsets import ModelViewSet
 from woman.models import Woman
 from woman.serializers import WomanSerializer
 
 
-class WomanListCreateAPIView(ListCreateAPIView):
-    queryset = Woman.objects.all()
-    serializer_class = WomanSerializer
-
-
-class WomanUpdateAPIView(RetrieveUpdateDestroyAPIView):
+class WomanModelViewSet(ModelViewSet):
     queryset = Woman.objects.all()
     serializer_class = WomanSerializer

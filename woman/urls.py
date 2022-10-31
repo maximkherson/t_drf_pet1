@@ -1,7 +1,7 @@
 from django.urls import path
-from woman.views import WomanListCreateAPIView, WomanUpdateAPIView
+from woman.views import WomanModelViewSet
 
 urlpatterns = [
-    path('', WomanListCreateAPIView.as_view(), name='women'),
-    path('<int:pk>', WomanUpdateAPIView.as_view())
+    path('', WomanModelViewSet.as_view({'get': 'list'}), name='women'),
+    path('<int:pk>', WomanModelViewSet.as_view({'get': 'retrieve', 'put': 'update'}))
 ]
